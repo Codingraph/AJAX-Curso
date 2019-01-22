@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="includes/jquery-3.3.1.js" type="text/javascript"></script>
+	<title>Calculadora</title>
+</head>
+<body>
+
+	<input type="text" id="numero1"><br>
+	<input type="text" id="numero2"><br>
+	<input type="submit" value="Sumar" id="ejecutar">
+
+	<h4 id="resultado"></h4>
+
+	<script type="text/javascript">
+		$('#ejecutar').click(function(){
+			//Recibimos los parámetros
+			sumar($('#numero1').val(),$('#numero2').val());
+		});
+
+
+		function sumar(val1,val2){
+			var parametros = {
+				//Primero defino cómo llamo
+				//al parámetro y luego le asigno el valor
+				"val1" : val1,
+				"val2" : val2
+			}
+
+			//Ejecutamos AJAX
+			$.ajax({
+				data:parametros,
+				url:"suma.php",
+				type:"post",
+				beforeSend:function(){
+					$('#resultado').text('sumando...');
+				} 
+			})
+			.done(function(data){
+				$('#resultado').text(data);
+			});
+
+		}
+
+	</script>
+
+</body>
+</html>
